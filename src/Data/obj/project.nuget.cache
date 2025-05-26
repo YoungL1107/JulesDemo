@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aV0TU8uLZm2jrqKMr530n+T2ySawXA/F/z5XFhztLVuzwct+3DxEMwhPNgkOlLw8xx5g+1PQif03zJ6/agTXgA==",
+  "success": true,
+  "projectFilePath": "/app/src/Data/Data.csproj",
+  "expectedPackageFiles": [
+    "/home/swebot/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512"
+  ],
+  "logs": []
+}
