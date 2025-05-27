@@ -20,4 +20,21 @@
 - 私有系统对订单的处理进度，反馈到shopify
 - 对接shopify的支付
 
+## Database Schema
+
+### Order Table
+
+Describes the structure of the `Order` table used for managing customer orders.
+
+| Field           | Type         | Constraints                               | Description                                  |
+|-----------------|--------------|-------------------------------------------|----------------------------------------------|
+| SysNo           | INT          | PRIMARY KEY, IDENTITY(1,1)                | Unique identifier for the order              |
+| ProductSysNo    | INT          | FOREIGN KEY REFERENCES Products(SysNo)    | Identifier of the product being ordered      |
+| Status          | SMALLINT     |                                           | Current status of the order (e.g., Pending, Shipped, Delivered, Cancelled) |
+| Price           | DECIMAL(18,2)|                                           | Price of the product at the time of order    |
+| Quantity        | INT          |                                           | Number of units ordered                      |
+| Color           | NVARCHAR(50) |                                           | Color of the product ordered                 |
+| ShippingAddress | NVARCHAR(500)|                                           | Address where the order should be shipped    |
+| PaymentStatus   | INT          |                                           | Status of the payment (e.g., Pending, Paid, Failed) |
+
 
