@@ -8,7 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<Data.IDbConnectionFactory, Data.DbConnectionFactory>();
 builder.Services.AddScoped<Core.Interfaces.IExampleRepository, Data.ExampleRepository>();
 
+// Register Product services and repositories
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductColorRepository, ProductColorRepository>();
+builder.Services.AddScoped<ProductService>();
+
 // Add services to the container.
+builder.Services.AddControllers(); // Added for MVC Controllers
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,6 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers(); // Added to map controller routes
 
 var summaries = new[]
 {
