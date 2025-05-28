@@ -7,11 +7,16 @@ namespace Core
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductColorRepository _productColorRepository;
+        private readonly IProductOnShopifyRepository _productOnShopifyRepository;
 
-        public ProductService(IProductRepository productRepository, IProductColorRepository productColorRepository)
+        public ProductService(
+            IProductRepository productRepository, 
+            IProductColorRepository productColorRepository,
+            IProductOnShopifyRepository productOnShopifyRepository)
         {
             _productRepository = productRepository;
             _productColorRepository = productColorRepository;
+            _productOnShopifyRepository = productOnShopifyRepository;
         }
 
         // Product methods
@@ -83,5 +88,49 @@ namespace Core
         //         }
         //     }
         // }
+
+        // ProductOnShopify methods
+        public Task<ProductOnShopify> GetProductShopifyLinkByProductIdAsync(int productSysNo)
+        {
+            return _productOnShopifyRepository.GetByProductSysNoAsync(productSysNo);
+        }
+
+        public Task<ProductOnShopify> GetProductShopifyLinkByShopifyIdAsync(string shopifyProductId)
+        {
+            return _productOnShopifyRepository.GetByShopifyProductIdAsync(shopifyProductId);
+        }
+
+        public async Task LinkProductToShopifyAsync(ProductOnShopify productShopifyLink)
+        {
+            if (productShopifyLink == null)
+            {
+                // Consider throwing ArgumentNullException or a custom validation exception
+                // For now, we'll just prevent the call if it's null.
+                // Or, more robustly, throw new System.ArgumentNullException(nameof(productShopifyLink));
+                return; 
+            }
+            // Add any business logic/validation before adding
+            // e.g., check if productShopifyLink.ProductSysNo exists in Products table
+            // e.g., check if shopifyProductId is a valid format or doesn't already exist for another product.
+            // For this task, we assume basic validation is sufficient or handled elsewhere.
+            await _productOnShopifyRepository.AddAsync(productShopifyLink);
+        }
+
+        public async Task UpdateProductShopifyLinkAsync(ProductOnShopify productShopifyLink)
+        {
+            if (productShopifyLink == null)
+            {
+                // throw new System.ArgumentNullException(nameof(productShopifyLink));
+                return;
+            }
+            // Add any business logic/validation before updating
+            await _productOnShopifyRepository.UpdateAsync(productShopifyLink);
+        }
+
+        public Task UnlinkProductFromShopifyAsync(int sysNo)
+        {
+            // Add any business logic (e.g., logging, cleanup)
+            return _productOnShopifyRepository.DeleteAsync(sysNo);
+        }
     }
 }
