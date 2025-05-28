@@ -17,6 +17,9 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<OrderService>();
 
+// Configure Shopify API Settings
+builder.Services.Configure<ShopifyApiSettings>(builder.Configuration.GetSection("ShopifyApiSettings"));
+
 // Add services to the container.
 builder.Services.AddControllers(); // Added for MVC Controllers
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
